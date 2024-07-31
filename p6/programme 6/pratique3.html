@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercices</title>
+    <link rel="stylesheet" href="./exoPratique.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <img src="./assets/Vision Science Noire.png" height="90" width="120" />
+        <h1>Vision Sciences-Gabon</h1>
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/courses">Cours</a></li>
+        <li><a href="/exercises">Exercices</a></li>
+        <li><a href="/profile">Mon Profil</a></li>
+      </ul>
+    </nav>
+    <div class="media">
+      <video controls width="600" height="350" class="vide">
+        <source
+          src="./assets/1 minute pour appliquer le théorème de Pythagore (1).mp4"
+          type="video/webm"
+        />
+
+        <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+
+        Download the
+        <a href="/media/cc0-videos/flower.webm">WEBM</a>
+        or
+        <a href="/media/cc0-videos/flower.mp4">MP4</a>
+        video.
+      </video>
+
+      <div class="container">
+        <h2>Exercices : Équations du premier degré</h2>
+        <div id="progress-bar"></div>
+        <p>Progression : <span id="progress">0</span>/5</p>
+
+        <div id="exercise-container"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 SciencePro E-learning. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+      const exercises = [
+        {
+          type: "simple",
+          generate: () => {
+            const a = Math.floor(Math.random() * 10) - 5; // -5 to 5
+            const b = Math.floor(Math.random() * 20) - 10; // -10 to 10
+            return {
+              equation: `${a}x + ${b} = 0`,
+              answer: -b / a,
+            };
+          },
+        },
+        {
+          type: "fraction",
+          generate: () => {
+            const a = Math.floor(Math.random() * 10) + 1;
+            const b = Math.floor(Math.random() * 10) + 1;
+            const c = Math.floor(Math.random() * 20) - 10;
+            return {
+              equation: `${a}x/${b} + ${c} = 0`,
+              answer: (-c * b) / a,
+            };
+          },
+        },
+        {
+          type: "decimal",
+          generate: () => {
+            const a = (Math.floor(Math.random() * 10) + 1) / 10;
+            const b = Math.floor(Math.random() * 20) - 10;
+            return {
+              equation: `${a.toFixed(1)}x + ${b} = 0`,
+              answer: -b / a,
+            };
+          },
+        },
+      ];
+
+      let currentExerciseIndex = 0;
+      let score = 0;
+
+      function createExerciseCard(exercise) {
+        const card = document.createElement("div");
+        card.className = "exercise-card";
+        card.innerHTML = `
+        <p>Résolvez l'équation suivante :</p>
+        <div class="equation-display">${exercise.equation}</div>
+        <input type="text" class="user-answer" placeholder="Entrez votre réponse">
+        <button class="submit-answer">Vérifier</button>
+        <div class="feedback"></div>
+      `;
+        return card;
+      }
+
+      function checkAnswer(userAnswer, correctAnswer, feedbackElement) {
+        const parsedAnswer = parseFloat(userAnswer);
+        if (isNaN(parsedAnswer)) {
+          feedbackElement.textContent = "Veuillez entrer un nombre valide.";
+          feedbackElement.style.color = "orange";
+          return false;
+        } else if (Math.abs(parsedAnswer - correctAnswer) < 0.01) {
+          feedbackElement.textContent = "Correct ! Bien joué !";
+          feedbackElement.style.color = "green";
+          return true;
+        } else {
+          feedbackElement.textContent = `Incorrect. La bonne réponse était ${correctAnswer.toFixed(
+            2
+          )}.`;
+          feedbackElement.style.color = "red";
+          return false;
+        }
+      }
+
+      function updateProgress() {
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress");
+        progressBar.style.width = `${(score / 5) * 100}%`;
+        progressText.textContent = score;
+      }
+
+      function loadNextExercise() {
+        const container = document.getElementById("exercise-container");
+        container.innerHTML = "";
+
+        if (currentExerciseIndex < 5) {
+          const exerciseType =
+            exercises[Math.floor(Math.random() * exercises.length)];
+          const exercise = exerciseType.generate();
+          const card = createExerciseCard(exercise);
+          container.appendChild(card);
+
+          const submitButton = card.querySelector(".submit-answer");
+          const userInput = card.querySelector(".user-answer");
+          const feedbackElement = card.querySelector(".feedback");
+
+          submitButton.addEventListener("click", () => {
+            if (
+              checkAnswer(userInput.value, exercise.answer, feedbackElement)
+            ) {
+              score++;
+              updateProgress();
+            }
+            currentExerciseIndex++;
+            setTimeout(loadNextExercise, 2000);
+          });
+        } else {
+          container.innerHTML = `
+          <h3>Exercices terminés !</h3>
+          <p>Votre score final : ${score}/5</p>
+          <button id="restart">Recommencer</button>
+        `;
+          document.getElementById("restart").addEventListener("click", () => {
+            currentExerciseIndex = 0;
+            score = 0;
+            updateProgress();
+            loadNextExercise();
+          });
+        }
+      }
+
+      loadNextExercise();
+    </script>
+  </body>
+</html>

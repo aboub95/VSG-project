@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programme</title>
+    <link rel="stylesheet" href="./Acceuil.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Programme d'exercices et TD interactif - 6ème</h1>
+    </header>
+
+    <main>
+      <section class="subject">
+        <h2>Physique-Chimie</h2>
+        <ul>
+          <li class="free">
+            <a href="physique-chimie/chapitre-1"
+              >Chapitre 1: Introduction à la matière</a
+            >
+          </li>
+          <li class="free">
+            <a href="physique-chimie/chapitre-2"
+              >Chapitre 2: Les états de la matière</a
+            >
+          </li>
+          <li class="free">
+            <a href="physique-chimie/chapitre-3"
+              >Chapitre 3: L'énergie et ses formes</a
+            >
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 4: Les mélanges et solutions</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 5: Électricité simple</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 6: La lumière et les ombres</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 7: Le son et les vibrations</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 8: Les forces et le mouvement</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="subject">
+        <h2>Sciences de la Vie et de la Terre (SVT)</h2>
+        <ul>
+          <li class="free">
+            <a href="svt/chapitre-1"
+              >Chapitre 1: L'organisation du monde vivant</a
+            >
+          </li>
+          <li class="free">
+            <a href="svt/chapitre-2"
+              >Chapitre 2: Les êtres vivants dans leur environnement</a
+            >
+          </li>
+          <li class="free">
+            <a href="svt/chapitre-3">Chapitre 3: Le corps humain et la santé</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement"
+              >Chapitre 4: La reproduction des êtres vivants</a
+            >
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 5: L'évolution des espèces</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 6: Les écosystèmes</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 7: La Terre et son histoire</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement"
+              >Chapitre 8: Les risques naturels et la prévention</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="subject">
+        <h2>Mathématiques</h2>
+        <ul>
+          <li class="free">
+            <a href="./">Chapitre 1: Nombres et calculs</a>
+          </li>
+          <li class="free">
+            <a href="mathematiques/chapitre-2">Chapitre 2: Géométrie plane</a>
+          </li>
+          <li class="free">
+            <a href="mathematiques/chapitre-3"
+              >Chapitre 3: Grandeurs et mesures</a
+            >
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 4: Fractions et décimaux</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 5: Proportionnalité</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 6: Symétrie axiale</a>
+          </li>
+          <li class="locked">
+            <a href="abonnement"
+              >Chapitre 7: Gestion de données et statistiques</a
+            >
+          </li>
+          <li class="locked">
+            <a href="abonnement">Chapitre 8: Initiation à l'algèbre</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      document.querySelectorAll(".locked a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          alert(
+            "Ce chapitre est verrouillé. Veuillez vous abonner pour y accéder."
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
